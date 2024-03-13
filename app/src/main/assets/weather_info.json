@@ -11,6 +11,8 @@
       ]
     },
     {
+      "pressure": 1024,
+      "humidity": 23,
       "weather": [
         {
           "id": 321,
