@@ -1,0 +1,24 @@
+{
+  "list": [
+    {
+      "weather": [
+        {
+          "id": 123,
+          "main": "main or something",
+          "description": "this is description",
+          "icon": "https://icon.url.png"
+        }
+      ]
+    },
+    {
+      "weather": [
+        {
+          "id": 321,
+          "main": "main or something",
+          "description": "this is description",
+          "icon": "https://icon2.url.png"
+        }
+      ]
+    }
+  ]
+}
