@@ -25,16 +25,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.weathercompose.R
-import com.example.weathercompose.model.Content
-import com.example.weathercompose.model.WeatherEntity
+import com.example.weathercompose.model.ContentEntity
 import com.example.weathercompose.navigation.WeatherScreens
 import com.example.weathercompose.ui.theme.viewmodel.WeatherViewModel
-import com.example.weathercompose.data.WeatherResult
 import com.example.weathercompose.model.WeatherModel
 import com.example.weathercompose.ui.theme.viewmodel.WeatherUIState
 import com.example.weathercompose.widgets.WeatherAppBar
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun WeatherHomeScreen(navController: NavController, viewModel: WeatherViewModel) {
@@ -77,33 +75,35 @@ fun HomeScaffold(content: WeatherModel, navController: NavController?) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Wed, January 3", Modifier.padding(innerPadding))
-            Surface(
-                modifier = Modifier
-                    .padding(15.dp)
-                    .size(200.dp),
-                color = Color.Yellow,
-                shape = CircleShape,
-            ) {
-//                Image(
-//                    painter = painterResource(id = R.drawable.weather),
-//                    modifier = Modifier.size(32.dp),
-//                    contentDescription = null
-//                )
-                Column(
-                    verticalArrangement = Arrangement.SpaceAround,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    WeatherStateImage(res = R.drawable.weather_cloudy)
-                    Text(text = "54" + "º", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                    Text(text = "Rain")
-                }
-            }
+            TopCircle()
         }
     }
 }
 
 @Composable
-fun MainContent(data: Content) {
+fun TopCircle() {
+    Surface(
+        modifier = Modifier
+            .padding(15.dp)
+            .size(200.dp),
+        color = Color.Yellow,
+        shape = CircleShape,
+    ) {
+        Column(
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            WeatherStateImage(res = R.drawable.weather_cloudy)
+            // Load image online
+            //   WeatherStateImage(imageUrl = "https://openweathermap.org/img/wn/10d.png")
+            Text(text = "54" + "º", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Rain")
+        }
+    }
+}
+
+@Composable
+fun MainContent(data: ContentEntity) {
 
 }
 
@@ -117,9 +117,18 @@ fun WeatherStateImage(res: Int) {
     }
 }
 
+@Composable
+fun WeatherStateImage(imageUrl: String) {
+    Image(
+        painter = rememberAsyncImagePainter(model = imageUrl),
+        contentDescription = null,
+        modifier = Modifier.size(80.dp)
+    )
+}
+
 @Preview
 @Composable
 fun PreviewHome() {
-   // HomeScaffold(navController = null)
+    // HomeScaffold(navController = null)
 }
 
