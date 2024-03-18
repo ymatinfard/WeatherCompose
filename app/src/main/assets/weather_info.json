@@ -15,10 +15,15 @@
       "pressure": 1024,
       "humidity": 23,
       "temp": {
-        "day": 12.47,
-        "min": 11.2,
-        "max": 16.32
+        "day": 52.47,
+        "min": 52.45,
+        "max": 54.52,
+        "night": 52.34,
+        "eve": 53.62,
+        "morn": 53.91
       },
+      "sunrise": 1638286561,
+      "sunset": 1638318041,
       "weather": [
         {
           "id": 321,

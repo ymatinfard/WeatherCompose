@@ -1,28 +1,31 @@
 package com.example.weathercompose.model
 
-import com.google.gson.annotations.SerializedName
-
 data class WeatherEntity(
-    @SerializedName("list")
-    val list: List<MainEntity>? = null,
+    val main: MainEntity,
+    val dt: Long,
+    val sys: SysEntity,
+    val name: String
 ) {
-    fun toDomain() = WeatherModel(list?.map(MainEntity::toDomain))
+    fun toDomain(): WeatherModel = WeatherModel(main.toDomain(), dt, sys.toDomain(), name)
+}
+
+data class SysEntity(
+    val type: Int,
+    val id: Long,
+    val country: String,
+    val sunrise: Long,
+    val sunset: Long
+) {
+    fun toDomain(): SysModel = SysModel(type, id, country, sunrise, sunset)
 }
 
 data class MainEntity(
-    @SerializedName("dt")
-    val dateTime: Long,
-    @SerializedName("weather")
-    val weather: List<ContentEntity>? = null,
+    val temp: Float,
+    val feels_like: Float,
+    val temp_min: Float,
+    val temp_max: Float,
+    val pressure: Int,
+    val humidity: Int,
 ) {
-    fun toDomain() = Main(dateTime, weather?.map(ContentEntity::toDomain))
-}
-
-data class ContentEntity(
-    val id: Int,
-    val main: String,
-    val description: String,
-    val icon: String,
-) {
-    fun toDomain(): Content = Content(id, main, description, icon)
+    fun toDomain(): MainModel = MainModel(temp, feels_like, temp_min, temp_max, pressure, humidity)
 }

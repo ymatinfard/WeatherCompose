@@ -1,12 +1,11 @@
 package com.example.weathercompose.data.remote
 
 import com.example.weathercompose.model.WeatherEntity
-import com.example.weathercompose.utils.Constants
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface WeatherApi {
-
-    @GET(value = "forecast?id=524901&appid=12943db2bdaa6b0f93d679d790f5e0fa")
-    suspend fun getWeather(): WeatherEntity
+    @GET(value = "weather?appid=b2baa5591288db3453c105260ad01a8d")
+    suspend fun getWeather(@Query("q") city: String? = "messina"): WeatherEntity
 }
