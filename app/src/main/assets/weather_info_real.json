@@ -1,0 +1,43 @@
+{
+  "coord": {
+    "lon": 15.5497,
+    "lat": 38.1933
+  },
+  "weather": [
+    {
+      "id": 804,
+      "main": "Clouds",
+      "description": "overcast clouds",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 289.29,
+    "feels_like": 288.45,
+    "temp_min": 288.49,
+    "temp_max": 290.03,
+    "pressure": 1020,
+    "humidity": 57
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 5.66,
+    "deg": 360
+  },
+  "clouds": {
+    "all": 99
+  },
+  "dt": 1710517786,
+  "sys": {
+    "type": 2,
+    "id": 2036319,
+    "country": "IT",
+    "sunrise": 1710479322,
+    "sunset": 1710522281
+  },
+  "timezone": 3600,
+  "id": 2524170,
+  "name": "Messina",
+  "cod": 200
+}
