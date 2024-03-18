@@ -8,9 +8,9 @@ import com.example.weathercompose.ui.theme.screen.WeatherAboutScreen
 import com.example.weathercompose.ui.theme.screen.WeatherFavorites
 import com.example.weathercompose.ui.screen.WeatherHomeScreen
 import com.example.weathercompose.ui.theme.screen.WeatherSearchScreen
-import com.example.weathercompose.ui.theme.screen.WeatherSettingsScreen
+import com.example.weathercompose.ui.screen.WeatherSettingsScreen
 import com.example.weathercompose.ui.screen.WeatherSplashScreen
-import com.example.weathercompose.ui.theme.viewmodel.WeatherViewModel
+import com.example.weathercompose.ui.viewmodel.WeatherViewModel
 
 @Composable
 fun WeatherNavigation() {

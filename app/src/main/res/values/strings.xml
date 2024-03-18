@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WeatherCompose</string>
+    <string name="this_week">This week</string>
 </resources>
