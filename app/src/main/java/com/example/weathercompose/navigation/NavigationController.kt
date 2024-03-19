@@ -1,8 +1,10 @@
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.weathercompose.navigation.WeatherScreens
 import com.example.weathercompose.ui.theme.screen.WeatherAboutScreen
 import com.example.weathercompose.ui.theme.screen.WeatherFavorites
@@ -21,9 +23,14 @@ fun WeatherNavigation() {
             WeatherSplashScreen(navController)
         }
 
-        composable(WeatherScreens.MainScreen.name) {
+        composable(WeatherScreens.MainScreen.name + "/{city}", arguments = listOf(
+            navArgument(name = "city") {
+                type = NavType.StringType
+            }
+        )) { navBack ->
+            val city = navBack.arguments?.getString("city") ?: "Messina"
             val viewModel = hiltViewModel<WeatherViewModel>()
-            WeatherHomeScreen(navController = navController, viewModel)
+            WeatherHomeScreen(navController = navController, viewModel, city)
         }
 
         composable(WeatherScreens.SearchScreen.name) {

@@ -1,6 +1,5 @@
 package com.example.weathercompose.utils
 
-import androidx.compose.ui.text.intl.Locale
 import java.text.SimpleDateFormat
 import java.util.Date
 

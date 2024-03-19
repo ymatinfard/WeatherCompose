@@ -51,6 +51,7 @@ fun WeatherSplashScreen(navController: NavController? = null) {
         Animatable(0f)
     }
 
+    val defaultCity = "Sicily"
     LaunchedEffect(key1 = true, block = {
         scale.animateTo(targetValue = 0.9f, animationSpec = tween(
             durationMillis = 800,
@@ -60,7 +61,7 @@ fun WeatherSplashScreen(navController: NavController? = null) {
         ))
 
         delay(3000)
-        navController?.navigate(WeatherScreens.MainScreen.name)
+        navController?.navigate(WeatherScreens.MainScreen.name + "/$defaultCity")
     })
 
     // TODO() There is a problem with size
