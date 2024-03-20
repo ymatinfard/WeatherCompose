@@ -43,6 +43,9 @@ fun WeatherHomeScreen(navController: NavController, viewModel: WeatherViewModel,
                 weatherInfo = (weatherInfo as WeatherUIState.Success).data,
                 navController = navController,
                 city,
+                onFavoriteClicked = {
+                    viewModel.saveFavoriteCity(it)
+                }
             )
         }
 
@@ -57,13 +60,16 @@ fun WeatherHomeScreen(navController: NavController, viewModel: WeatherViewModel,
 }
 
 @Composable
-fun HomeScaffold(weatherInfo: WeatherModel, navController: NavController?, city: String) {
+fun HomeScaffold(weatherInfo: WeatherModel, navController: NavController?, city: String, onFavoriteClicked: (String) -> Unit = {}) {
     Scaffold(
         topBar = {
             if (navController != null) {
                 WeatherAppBar(title = city, isMainScreen = true, onAddButtonClicked = {
                     navController.navigate(WeatherScreens.SearchScreen.name)
-                }, navController = navController)
+                }, navController = navController,
+                    onFavoriteClicked = {
+                        onFavoriteClicked.invoke(it)
+                    })
             }
         },
     ) { innerPadding ->

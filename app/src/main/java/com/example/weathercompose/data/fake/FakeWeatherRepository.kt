@@ -4,9 +4,10 @@ import com.example.weathercompose.data.WeatherRepository
 import com.example.weathercompose.data.WeatherResult
 import com.example.weathercompose.di.Dispatcher
 import com.example.weathercompose.di.WeatherDispatchers
-import com.example.weathercompose.model.WeatherEntity
+import com.example.weathercompose.model.FavoriteModel
 import com.example.weathercompose.model.WeatherModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -20,4 +21,12 @@ class FakeWeatherRepository(
     }.catch {
         emit(WeatherResult.Error(it))
     }.flowOn(ioDispatcher)
+
+    override fun getFavorites(): Flow<List<FavoriteModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveFavorite(city: String) {
+        TODO("Not yet implemented")
+    }
 }

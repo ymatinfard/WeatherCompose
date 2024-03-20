@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,7 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -52,16 +53,21 @@ fun WeatherAppBar(
     isMainScreen: Boolean,
     onAddButtonClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {},
+    onFavoriteClicked: (String) -> Unit = {},
     navController: NavController
 ) {
     val showDialog = remember {
         mutableStateOf(false)
     }
 
+    var isFavorite by remember {
+        mutableStateOf(false)
+    }
+
     if (showDialog.value) {
         showSettingDropDownMenu(showDialog, navController = navController)
     }
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 text = title,
@@ -95,6 +101,15 @@ fun WeatherAppBar(
             }
         },
         navigationIcon = {
+            if (isMainScreen) {
+                Icon(
+                    imageVector = Icons.Default.Favorite, contentDescription = null,
+                    modifier = Modifier.padding(3.dp).clickable {
+                        isFavorite = !isFavorite
+                        onFavoriteClicked.invoke(title)
+                    }, tint = if (isFavorite) Color.Red else Color.LightGray
+                )
+            }
             if (icon != null) {
                 Icon(
                     imageVector = icon,
@@ -159,6 +174,5 @@ fun showSettingDropDownMenu(showDialog: MutableState<Boolean>, navController: Na
                     })
             }
         }
-
     }
 }

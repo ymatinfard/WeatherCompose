@@ -3,7 +3,7 @@ package com.example.weathercompose.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weathercompose.data.WeatherResult
-import com.example.weathercompose.data.remote.OnlineWeatherRepository
+import com.example.weathercompose.data.WeatherRepositoryImpl
 import com.example.weathercompose.model.WeatherModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherViewModel @Inject constructor(private val repository: OnlineWeatherRepository) :
+class WeatherViewModel @Inject constructor(private val repository: WeatherRepositoryImpl) :
     ViewModel() {
 
     private var _weatherInfo = MutableStateFlow<WeatherUIState>(WeatherUIState.Loading)
@@ -48,6 +48,12 @@ class WeatherViewModel @Inject constructor(private val repository: OnlineWeather
             }.collect {
                 _weatherInfo.value = it
             }
+        }
+    }
+
+    fun saveFavoriteCity(city: String) {
+        viewModelScope.launch {
+            repository.saveFavorite(city)
         }
     }
 }
