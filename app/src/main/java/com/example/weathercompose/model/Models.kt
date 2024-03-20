@@ -23,3 +23,7 @@ data class MainModel(
     val pressure: Int,
     val humidity: Int,
 )
+
+data class FavoriteModel(
+    val city: String
+)

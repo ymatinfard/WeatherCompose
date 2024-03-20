@@ -1,5 +1,9 @@
 package com.example.weathercompose.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 data class WeatherEntity(
     val main: MainEntity,
     val dt: Long,
@@ -28,4 +32,13 @@ data class MainEntity(
     val humidity: Int,
 ) {
     fun toDomain(): MainModel = MainModel(temp, feels_like, temp_min, temp_max, pressure, humidity)
+}
+
+@Entity(tableName = "favorite")
+data class FavoriteEntity(
+    @PrimaryKey
+    @ColumnInfo(name = "city")
+    val city: String
+) {
+    fun toDomain() = FavoriteModel(city)
 }
