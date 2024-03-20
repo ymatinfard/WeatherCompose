@@ -29,4 +29,8 @@ class FakeWeatherRepository(
     override suspend fun saveFavorite(city: String) {
         TODO("Not yet implemented")
     }
+
+    override suspend fun deleteFavorite(favoriteModel: FavoriteModel) {
+        TODO("Not yet implemented")
+    }
 }

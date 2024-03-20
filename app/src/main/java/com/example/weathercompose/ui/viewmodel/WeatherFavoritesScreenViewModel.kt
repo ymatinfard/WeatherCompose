@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,4 +20,10 @@ class WeatherFavoritesScreenViewModel @Inject constructor(private val repository
         initialValue = emptyList(),
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000)
     )
+
+    fun deleteFavorite(favorite: FavoriteModel) {
+        viewModelScope.launch {
+            repository.deleteFavorite(favorite)
+        }
+    }
 }

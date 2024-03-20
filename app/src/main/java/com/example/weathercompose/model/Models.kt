@@ -26,4 +26,6 @@ data class MainModel(
 
 data class FavoriteModel(
     val city: String
-)
+) {
+    fun toEntity() = FavoriteEntity(city)
+}

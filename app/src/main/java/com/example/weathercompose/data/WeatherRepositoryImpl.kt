@@ -40,4 +40,8 @@ open class WeatherRepositoryImpl @Inject constructor(
             dao.saveFavorite(FavoriteEntity(city))
         }
     }
+
+    override suspend fun deleteFavorite(favoriteModel: FavoriteModel) {
+        dao.deleteFavorite(favoriteModel.toEntity())
+    }
 }
