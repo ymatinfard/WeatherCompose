@@ -34,7 +34,7 @@ data class MainEntity(
     fun toDomain(): MainModel = MainModel(temp, feels_like, temp_min, temp_max, pressure, humidity)
 }
 
-@Entity(tableName = "favorite")
+@Entity(tableName = "favorite_tbl")
 data class FavoriteEntity(
     @PrimaryKey
     @ColumnInfo(name = "city")

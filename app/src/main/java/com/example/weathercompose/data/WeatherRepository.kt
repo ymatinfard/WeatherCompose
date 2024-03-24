@@ -8,5 +8,5 @@ interface WeatherRepository {
     fun getWeather(query: String? = null): Flow<WeatherResult<WeatherModel>>
     fun getFavorites(): Flow<List<FavoriteModel>>
     suspend fun saveFavorite(city: String)
-    suspend fun deleteFavorite(favoriteModel: FavoriteModel)
+    suspend fun removeFavoriteCity(favoriteModel: FavoriteModel)
 }

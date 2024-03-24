@@ -4,20 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,61 +21,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.weathercompose.R
 import com.example.weathercompose.model.MainModel
 import com.example.weathercompose.model.WeatherModel
-import com.example.weathercompose.navigation.WeatherScreens
 import com.example.weathercompose.utils.formatDate
 import com.example.weathercompose.utils.formatTime
 
-
-@Composable
-fun HomeScaffold(weatherInfo: WeatherModel, navController: NavController?) {
-    Scaffold(
-        topBar = {
-            if (navController != null) {
-                WeatherAppBar(title = "Messina", isMainScreen = true, onAddButtonClicked = {
-                    navController.navigate(WeatherScreens.SearchScreen.name)
-                }, navController = navController)
-            }
-        },
-    ) { innerPadding ->
-        Column(
-            Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = formatDate(weatherInfo.dt),
-                Modifier.padding(innerPadding)
-            )
-            TopCircle()
-            HumidityWindPressureRow(weatherInfo.main)
-            Divider(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(2.dp), color = Color.LightGray
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-            SunsetSunRiseRow(weatherInfo)
-            Text(text = stringResource(id = R.string.this_week), Modifier.padding(top = 10.dp))
-            // TODO() There is no proper data, so I repeat the same data to create a list to show in main screen
-            val weatherList = listOf(weatherInfo, weatherInfo, weatherInfo)
-            LazyColumn {
-                items(weatherList) {
-                    DailyItemRow(it)
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun SunsetSunRiseRow(sunInfo: WeatherModel) {

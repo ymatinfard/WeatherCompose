@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.weathercompose.navigation.WeatherScreens
+import com.example.weathercompose.ui.viewmodel.WeatherViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,22 +53,23 @@ fun WeatherAppBar(
     icon: ImageVector? = null,
     elevation: Dp = 0.dp,
     isMainScreen: Boolean,
+    navController: NavController,
+    viewModel: WeatherViewModel,
     onAddButtonClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {},
     onFavoriteClicked: (String) -> Unit = {},
-    navController: NavController
+    onRemoveFavoriteClicked: (String) -> Unit = {}
 ) {
     val showDialog = remember {
         mutableStateOf(false)
     }
 
-    var isFavorite by remember {
-        mutableStateOf(false)
-    }
+    val isFavorite = viewModel.isInFavoriteList(title).collectAsState()
 
     if (showDialog.value) {
         showSettingDropDownMenu(showDialog, navController = navController)
     }
+
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -104,10 +107,15 @@ fun WeatherAppBar(
             if (isMainScreen) {
                 Icon(
                     imageVector = Icons.Default.Favorite, contentDescription = null,
-                    modifier = Modifier.padding(3.dp).clickable {
-                        isFavorite = !isFavorite
-                        onFavoriteClicked.invoke(title)
-                    }, tint = if (isFavorite) Color.Red else Color.LightGray
+                    modifier = Modifier
+                        .padding(3.dp)
+                        .clickable {
+                            if (isFavorite.value) {
+                                onRemoveFavoriteClicked(title)
+                            } else {
+                                onFavoriteClicked(title)
+                            }
+                        }, tint = if (isFavorite.value) Color.Red else Color.LightGray
                 )
             }
             if (icon != null) {

@@ -30,7 +30,7 @@ class FakeWeatherRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteFavorite(favoriteModel: FavoriteModel) {
+    override suspend fun removeFavoriteCity(favoriteModel: FavoriteModel) {
         TODO("Not yet implemented")
     }
 }

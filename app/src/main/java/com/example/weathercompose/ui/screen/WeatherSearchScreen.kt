@@ -1,4 +1,4 @@
-package com.example.weathercompose.ui.theme.screen
+package com.example.weathercompose.ui.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,22 +22,26 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.weathercompose.R
 import com.example.weathercompose.navigation.WeatherScreens
+import com.example.weathercompose.ui.viewmodel.WeatherViewModel
 import com.example.weathercompose.widgets.WeatherAppBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun WeatherSearchScreen(navController: NavController) {
+fun WeatherSearchScreen(viewModel: WeatherViewModel, navController: NavController) {
 
     Scaffold(
         topBar = {
-            WeatherAppBar(title = "Search page",
+            WeatherAppBar(
+                title = "Search page",
                 isMainScreen = false,
                 icon = ImageVector.vectorResource(
                     id = R.drawable.arrow_back_24
                 ),
                 onButtonClicked = {
                     navController.popBackStack()
-                }, navController = navController
+                },
+                viewModel = viewModel,
+                navController = navController
             )
         }
     ) {

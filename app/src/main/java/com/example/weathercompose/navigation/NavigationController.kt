@@ -11,7 +11,7 @@ import com.example.weathercompose.ui.screen.WeatherHomeScreen
 import com.example.weathercompose.ui.screen.WeatherSettingsScreen
 import com.example.weathercompose.ui.screen.WeatherSplashScreen
 import com.example.weathercompose.ui.theme.screen.WeatherAboutScreen
-import com.example.weathercompose.ui.theme.screen.WeatherSearchScreen
+import com.example.weathercompose.ui.screen.WeatherSearchScreen
 import com.example.weathercompose.ui.viewmodel.WeatherFavoritesScreenViewModel
 import com.example.weathercompose.ui.viewmodel.WeatherViewModel
 
@@ -35,7 +35,8 @@ fun WeatherNavigation() {
         }
 
         composable(WeatherScreens.SearchScreen.name) {
-            WeatherSearchScreen(navController = navController)
+            val viewModel = hiltViewModel<WeatherViewModel>()
+            WeatherSearchScreen(viewModel = viewModel, navController = navController)
         }
 
         composable(WeatherScreens.AboutScreen.name) {

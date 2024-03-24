@@ -1,5 +1,6 @@
 package com.example.weathercompose.ui.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -37,14 +39,22 @@ fun WeatherHomeScreen(navController: NavController, viewModel: WeatherViewModel,
 
     viewModel.getWeather(city)
     val weatherInfo by viewModel.weatherInfo.collectAsState()
+    val context = LocalContext.current
+
     when (weatherInfo) {
         is WeatherUIState.Success -> {
             HomeScaffold(
                 weatherInfo = (weatherInfo as WeatherUIState.Success).data,
                 navController = navController,
                 city,
+                viewModel = viewModel,
                 onFavoriteClicked = {
                     viewModel.saveFavoriteCity(it)
+                    Toast.makeText(context, "Added to favorites", Toast.LENGTH_SHORT).show()
+                },
+                onRemoveFavoriteClicked = {
+                    viewModel.removeFavoriteCity(it)
+                    Toast.makeText(context, "Removed from favorites", Toast.LENGTH_SHORT).show()
                 }
             )
         }
@@ -60,16 +70,26 @@ fun WeatherHomeScreen(navController: NavController, viewModel: WeatherViewModel,
 }
 
 @Composable
-fun HomeScaffold(weatherInfo: WeatherModel, navController: NavController?, city: String, onFavoriteClicked: (String) -> Unit = {}) {
+fun HomeScaffold(
+    weatherInfo: WeatherModel,
+    navController: NavController?,
+    city: String,
+    viewModel: WeatherViewModel,
+    onFavoriteClicked: (String) -> Unit = {},
+    onRemoveFavoriteClicked: (String) -> Unit = {},
+) {
     Scaffold(
         topBar = {
             if (navController != null) {
-                WeatherAppBar(title = city, isMainScreen = true, onAddButtonClicked = {
-                    navController.navigate(WeatherScreens.SearchScreen.name)
-                }, navController = navController,
-                    onFavoriteClicked = {
-                        onFavoriteClicked.invoke(it)
-                    })
+                WeatherAppBar(
+                    title = city, isMainScreen = true, onAddButtonClicked = {
+                        navController.navigate(WeatherScreens.SearchScreen.name)
+                    },
+                    viewModel = viewModel,
+                    navController = navController,
+                    onFavoriteClicked = onFavoriteClicked,
+                    onRemoveFavoriteClicked = onRemoveFavoriteClicked
+                )
             }
         },
     ) { innerPadding ->

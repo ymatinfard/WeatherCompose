@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,17 +41,24 @@ fun WeatherFavoritesScreen(viewModel: WeatherFavoritesScreenViewModel) {
 @Composable
 fun WeatherFavoriteRow(
     favoriteModel: FavoriteModel = FavoriteModel("Messi"),
-    onDelete: (FavoriteModel) -> Unit = {}
+    onDelete: (FavoriteModel) -> Unit = {},
 ) {
     Surface(
-        shape = RoundedCornerShape(6.dp)
+        shape = RoundedCornerShape(
+            topStart = 22.dp,
+            topEnd = 8.dp,
+            bottomStart = 22.dp,
+            bottomEnd = 22.dp
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp)
                 .height(50.dp)
                 .padding(6.dp),
-            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+            horizontalArrangement = Arrangement.Absolute.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(text = favoriteModel.city)
             Icon(

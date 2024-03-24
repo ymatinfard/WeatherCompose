@@ -32,7 +32,9 @@ class AppModule {
             context,
             WeatherDatabase::class.java,
             "weather-database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
 
 
     @Provides
